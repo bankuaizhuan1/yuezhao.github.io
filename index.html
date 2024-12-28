@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>诗韵 - 智能藏头诗生成平台</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700&display=swap">
+    <style>
+        body {
+            font-family: 'Noto Serif SC', serif;
+        }
+    </style>
+</head>
+<body class="bg-white">
+    <!-- 导航栏 -->
+    <header class="fixed w-full bg-white/80 backdrop-blur-md z-50">
+        <nav class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center">
+                    <div class="text-2xl font-bold text-gray-800">诗韵</div>
+                    <span class="ml-2 text-amber-600 text-sm">AI诗词创作</span>
+                </div>
+                
+                <!-- 移动端菜单按钮 -->
+                <button id="menuBtn" class="md:hidden text-gray-600">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+
+                <div class="hidden md:flex space-x-8">
+                    <a href="#features" class="text-gray-600 hover:text-gray-900">特色功能</a>
+                    <a href="#how-it-works" class="text-gray-600 hover:text-gray-900">使用方法</a>
+                    <a href="#pricing" class="text-gray-600 hover:text-gray-900">会员价格</a>
+                    <a href="#faq" class="text-gray-600 hover:text-gray-900">常见问题</a>
+                </div>
+                <button class="hidden md:block bg-amber-600 text-white px-6 py-2 rounded-full hover:bg-amber-700">立即创作</button>
+            </div>
+
+            <!-- 移动端菜单 -->
+            <div id="mobileMenu" class="hidden md:hidden mt-4 pb-4">
+                <div class="flex flex-col space-y-4">
+                    <a href="#features" class="text-gray-600">特色功能</a>
+                    <a href="#how-it-works" class="text-gray-600">使用方法</a>
+                    <a href="#pricing" class="text-gray-600">会员价格</a>
+                    <a href="#faq" class="text-gray-600">常见问题</a>
+                    <button class="bg-amber-600 text-white px-6 py-2 rounded-full hover:bg-amber-700 w-full">立即创作</button>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero区域 -->
+    <section class="pt-32 pb-20 bg-gradient-to-b from-amber-50">
+        <div class="container mx-auto px-6">
+            <div class="text-center max-w-4xl mx-auto">
+                <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+                    AI 智能创作
+                    <span class="text-amber-600">藏头诗</span>
+                </h1>
+                <p class="text-lg md:text-xl text-gray-600 mb-8">融合传统诗词文化与现代科技，为您创作独一无二的藏头诗</p>
+                <div class="flex justify-center space-x-4 mb-12">
+                    <div class="flex items-center">
+                        <svg class="w-5 h-5 text-amber-600 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                        </svg>
+                        <span>智能押韵</span>
+                    </div>
+                    <div class="flex items-center">
+                        <svg class="w-5 h-5 text-amber-600 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                        </svg>
+                        <span>格律工整</span>
+                    </div>
+                    <div class="flex items-center">
+                        <svg class="w-5 h-5 text-amber-600 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                        </svg>
+                        <span>意境优美</span>
+                    </div>
+                </div>
+
+                <!-- 优化诗词生成表单 -->
+                <div class="max-w-md mx-auto bg-white p-8 rounded-2xl shadow-lg">
+                    <form id="poemForm" class="space-y-6">
+                        <div class="relative">
+                            <input type="text" maxlength="4" placeholder="请输入四个汉字" 
+                                class="w-full px-4 py-3 text-center text-2xl rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-amber-500"
+                                required pattern="[\u4e00-\u9fa5]{4}">
+                            <p class="text-sm text-gray-500 mt-2">例如：春夏秋冬</p>
+                        </div>
+                        <button type="submit" class="w-full bg-amber-600 text-white py-3 rounded-lg hover:bg-amber-700 transition-colors flex items-center justify-center">
+                            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path>
+                            </svg>
+                            生成藏头诗
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 特色功能 -->
+    <section id="features" class="py-20">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold text-center mb-12">智能创作系统</h2>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="text-center p-6">
+                    <div class="text-amber-600 text-4xl mb-4">韵</div>
+                    <h3 class="text-xl font-semibold mb-4">智能押韵</h3>
+                    <p class="text-gray-600">运用先进算法，确保诗词韵律和谐</p>
+                </div>
+                <div class="text-center p-6">
+                    <div class="text-amber-600 text-4xl mb-4">词</div>
+                    <h3 class="text-xl font-semibold mb-4">丰富词库</h3>
+                    <p class="text-gray-600">海量诗词素材，意境优美典雅</p>
+                </div>
+                <div class="text-center p-6">
+                    <div class="text-amber-600 text-4xl mb-4">律</div>
+                    <h3 class="text-xl font-semibold mb-4">格律严谨</h3>
+                    <p class="text-gray-600">完美把控平仄，对仗工整</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 结果模态框 -->
+    <div id="resultModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+        <div class="bg-white rounded-2xl p-8 max-w-lg w-full mx-4">
+            <div class="text-right">
+                <button onclick="closeModal()" class="text-gray-500 hover:text-gray-700">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+            </div>
+            <div id="poemResult" class="space-y-6 text-center">
+                <!-- 诗词结果将在这里动态显示 -->
+            </div>
+        </div>
+    </div>
+
+    <!-- 添加 How it works 部分 -->
+    <section id="how-it-works" class="py-20 bg-gray-50">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold text-center mb-16">创作流程</h2>
+            <div class="grid md:grid-cols-4 gap-8">
+                <div class="text-center relative">
+                    <div class="bg-amber-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <span class="text-2xl font-bold text-amber-600">1</span>
+                    </div>
+                    <h3 class="font-semibold mb-2">输入文字</h3>
+                    <p class="text-gray-600">输入您想要的四个汉字</p>
+                    <!-- 添加连接线 -->
+                    <div class="hidden md:block absolute top-8 left-1/2 w-full h-0.5 bg-amber-200 -z-10"></div>
+                </div>
+                <div class="text-center relative">
+                    <div class="bg-amber-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <span class="text-2xl font-bold text-amber-600">2</span>
+                    </div>
+                    <h3 class="font-semibold mb-2">智能创作</h3>
+                    <p class="text-gray-600">AI系统快速生成诗句</p>
+                    <div class="hidden md:block absolute top-8 left-1/2 w-full h-0.5 bg-amber-200 -z-10"></div>
+                </div>
+                <div class="text-center relative">
+                    <div class="bg-amber-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <span class="text-2xl font-bold text-amber-600">3</span>
+                    </div>
+                    <h3 class="font-semibold mb-2">格律优化</h3>
+                    <p class="text-gray-600">自动调整韵律格式</p>
+                    <div class="hidden md:block absolute top-8 left-1/2 w-full h-0.5 bg-amber-200 -z-10"></div>
+                </div>
+                <div class="text-center">
+                    <div class="bg-amber-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <span class="text-2xl font-bold text-amber-600">4</span>
+                    </div>
+                    <h3 class="font-semibold mb-2">完成创作</h3>
+                    <p class="text-gray-600">展示优美的藏头诗</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 用户评价 -->
+    <section id="testimonials" class="py-20">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold text-center mb-16">用户评价</h2>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-white p-8 rounded-2xl shadow-lg">
+                    <div class="flex items-center mb-6">
+                        <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Felix" alt="用户头像" 
+                            class="w-12 h-12 rounded-full mr-4">
+                        <div>
+                            <h3 class="font-semibold">李文学</h3>
+                            <p class="text-gray-500 text-sm">文学爱好者</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-600">这个网站太神奇了！生成的藏头诗不仅贴合主题，而且意境优美，让我在朋友面前大显身手。AI 创作的水平真是令人惊叹！</p>
+                    <div class="flex mt-4">
+                        <svg class="w-5 h-5 text-amber-400" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                        </svg>
+                        <svg class="w-5 h-5 text-amber-400" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                        </svg>
+                        <svg class="w-5 h-5 text-amber-400" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                        </svg>
+                        <svg class="w-5 h-5 text-amber-400" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                        </svg>
+                        <svg class="w-5 h-5 text-amber-400" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                        </svg>
+                    </div>
+                </div>
+
+                <div class="bg-white p-8 rounded-2xl shadow-lg">
+                    <div class="flex items-center mb-6">
+                        <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Sophie" alt="用户头像" 
+                            class="w-12 h-12 rounded-full mr-4">
+                        <div>
+                            <h3 class="font-semibold">张诗韵</h3>
+                            <p class="text-gray-500 text-sm">教师</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-600">作为一名语文老师，我经常使用这个网站来激发学生的写作兴趣。生成的诗句格律工整，很适合作为教学案例。</p>
+                    <div class="flex mt-4">
+                        <svg class="w-5 h-5 text-amber-400" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                        </svg>
+                        <svg class="w-5 h-5 text-amber-400" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                        </svg>
+                        <svg class="w-5 h-5 text-amber-400" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                        </svg>
+                        <svg class="w-5 h-5 text-amber-400" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                        </svg>
+                        <svg class="w-5 h-5 text-amber-400" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                        </svg>
+                    </div>
+                </div>
+
+                <div class="bg-white p-8 rounded-2xl shadow-lg">
+                    <div class="flex items-center mb-6">
+                        <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=John" alt="用户头像" 
+                            class="w-12 h-12 rounded-full mr-4">
+                        <div>
+                            <h3 class="font-semibold">王明远</h3>
+                            <p class="text-gray-500 text-sm">企业家</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-600">在商务场合经常需要即兴赋诗，有了这个工具帮助，让我在应酬时更加得心应手。生成的诗句既有传统韵味，又不失现代气息。</p>
+                    <div class="flex mt-4">
+                        <svg class="w-5 h-5 text-amber-400" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                        </svg>
+                        <svg class="w-5 h-5 text-amber-400" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                        </svg>
+                        <svg class="w-5 h-5 text-amber-400" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                        </svg>
+                        <svg class="w-5 h-5 text-amber-400" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                        </svg>
+                        <svg class="w-5 h-5 text-amber-400" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ部分 -->
+    <section id="faq" class="py-20 bg-gray-50">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold text-center mb-16">常见问题</h2>
+            <div class="max-w-3xl mx-auto space-y-6">
+                <div class="bg-white rounded-xl p-6 shadow-lg">
+                    <h3 class="text-lg font-semibold mb-3">如何获得更好的藏头诗效果？</h3>
+                    <p class="text-gray-600">建议选择意境优美、寓意深远的汉字作为藏头字，这样生成的诗句会更加贴合主题。同时，尽量避免使用生僻字或者过于口语化的词语。</p>
+                </div>
+                
+                <div class="bg-white rounded-xl p-6 shadow-lg">
+                    <h3 class="text-lg font-semibold mb-3">生成的诗句可以修改吗？</h3>
+                    <p class="text-gray-600">目前系统支持重新生成功能，您可以多次尝试直到得到满意的结果。高级会员还可以享受人工优化服务。</p>
+                </div>
+                
+                <div class="bg-white rounded-xl p-6 shadow-lg">
+                    <h3 class="text-lg font-semibold mb-3">支持哪些类型的诗词创作？</h3>
+                    <p class="text-gray-600">目前主要支持七言绝句形式的藏头诗创作。我们的AI系统融合了传统诗词格律和现代创作技巧，能够生成格律工整、意境优美的诗句。</p>
+                </div>
+                
+                <div class="bg-white rounded-xl p-6 shadow-lg">
+                    <h3 class="text-lg font-semibold mb-3">创作的诗词版权归属？</h3>
+                    <p class="text-gray-600">使用我们平台生成的诗词，您可以自由使用。但建议在公开场合使用时注明是AI辅助创作，这样更符合职业���德。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 在 FAQ section 前添加 -->
+    <section id="pricing" class="py-20">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold text-center mb-4">会员方案</h2>
+            <p class="text-gray-600 text-center mb-16">选择最适合您的方案，开启智能创作之旅</p>
+            
+            <div class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                <!-- 体验版 -->
+                <div class="bg-white rounded-2xl shadow-lg p-8 hover:shadow-xl transition-shadow">
+                    <div class="text-center mb-8">
+                        <h3 class="text-xl font-bold mb-4">体验版</h3>
+                        <div class="text-4xl font-bold mb-4">
+                            <span class="text-gray-900">¥30</span>
+                            <span class="text-base font-normal text-gray-600">/月</span>
+                        </div>
+                        <p class="text-gray-600">适合个人体验使用</p>
+                    </div>
+                    <ul class="space-y-4 mb-8">
+                        <li class="flex items-center">
+                            <svg class="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            每日20次创作机会
+                        </li>
+                        <li class="flex items-center">
+                            <svg class="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            基础诗词风格
+                        </li>
+                        <li class="flex items-center">
+                            <svg class="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            标准客服支持
+                        </li>
+                    </ul>
+                    <button class="w-full py-3 px-6 rounded-lg bg-gray-100 text-gray-800 hover:bg-gray-200 transition-colors">
+                        选择方案
+                    </button>
+                </div>
+
+                <!-- 基础版 -->
+                <div class="bg-amber-50 rounded-2xl shadow-lg p-8 hover:shadow-xl transition-shadow relative transform scale-105">
+                    <div class="absolute top-0 right-0 bg-amber-600 text-white px-4 py-1 rounded-tr-2xl rounded-bl-2xl text-sm">
+                        推荐
+                    </div>
+                    <div class="text-center mb-8">
+                        <h3 class="text-xl font-bold mb-4">基础版</h3>
+                        <div class="text-4xl font-bold mb-4">
+                            <span class="text-gray-900">¥60</span>
+                            <span class="text-base font-normal text-gray-600">/月</span>
+                        </div>
+                        <p class="text-gray-600">适合创作爱好者</p>
+                    </div>
+                    <ul class="space-y-4 mb-8">
+                        <li class="flex items-center">
+                            <svg class="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            无限次创作机会
+                        </li>
+                        <li class="flex items-center">
+                            <svg class="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            多种诗词风格
+                        </li>
+                        <li class="flex items-center">
+                            <svg class="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            优先客服支持
+                        </li>
+                        <li class="flex items-center">
+                            <svg class="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            作品存储功能
+                        </li>
+                    </ul>
+                    <button class="w-full py-3 px-6 rounded-lg bg-amber-600 text-white hover:bg-amber-700 transition-colors">
+                        选择方案
+                    </button>
+                </div>
+
+                <!-- 专业版 -->
+                <div class="bg-white rounded-2xl shadow-lg p-8 hover:shadow-xl transition-shadow">
+                    <div class="text-center mb-8">
+                        <h3 class="text-xl font-bold mb-4">专业版</h3>
+                        <div class="text-4xl font-bold mb-4">
+                            <span class="text-gray-900">¥90</span>
+                            <span class="text-base font-normal text-gray-600">/月</span>
+                        </div>
+                        <p class="text-gray-600">适合专业创作者</p>
+                    </div>
+                    <ul class="space-y-4 mb-8">
+                        <li class="flex items-center">
+                            <svg class="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            包含基础版全部功能
+                        </li>
+                        <li class="flex items-center">
+                            <svg class="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            自定义创作风格
+                        </li>
+                        <li class="flex items-center">
+                            <svg class="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            24小时专属客服
+                        </li>
+                        <li class="flex items-center">
+                            <svg class="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            API接口调用
+                        </li>
+                        <li class="flex items-center">
+                            <svg class="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            商业版权授权
+                        </li>
+                    </ul>
+                    <button class="w-full py-3 px-6 rounded-lg bg-gray-100 text-gray-800 hover:bg-gray-200 transition-colors">
+                        选择方案
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="container mx-auto px-6">
+            <div class="grid md:grid-cols-4 gap-12 mb-12">
+                <!-- 网站信息 -->
+                <div>
+                    <div class="flex items-center mb-4">
+                        <h3 class="text-2xl font-bold">诗韵</h3>
+                        <span class="ml-2 text-amber-500 text-sm">AI诗词创作</span>
+                    </div>
+                    <p class="text-gray-400 mb-4">
+                        融合传统诗词文化与现代科技，为您创作独一无二的藏头诗。
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-amber-500">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.167 6.839 9.49.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.604-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.464-1.11-1.464-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.137 20.164 22 16.418 22 12c0-5.523-4.477-10-10-10z"/>
+                            </svg>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-amber-500">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M22.162 5.656a8.384 8.384 0 0 1-2.402.658A4.196 4.196 0 0 0 21.6 4c-.82.488-1.719.83-2.656 1.015a4.182 4.182 0 0 0-7.126 3.814 11.874 11.874 0 0 1-8.62-4.37 4.168 4.168 0 0 0-.566 2.103c0 1.45.738 2.731 1.86 3.481a4.168 4.168 0 0 1-1.894-.523v.052a4.185 4.185 0 0 0 3.355 4.101 4.21 4.21 0 0 1-1.89.072A4.185 4.185 0 0 0 7.97 16.65a8.394 8.394 0 0 1-6.191 1.732 11.83 11.83 0 0 0 6.41 1.88c7.693 0 11.9-6.373 11.9-11.9 0-.18-.005-.362-.013-.54a8.496 8.496 0 0 1 2.087-2.165z"/>
+                            </svg>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-amber-500">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.259.014-3.668.072-4.948.2-4.354 2.618-6.78 6.98-6.98 1.281-.058 1.689-.072 4.948-.072 3.259 0 3.668.014 4.948.072 4.354.2 6.782 2.618 6.979 6.98.059 1.28.073 1.689.073 4.948 0 3.259-.014 3.667-.072 4.947-.196 4.354-2.617 6.78-6.979 6.98-1.281.059-1.69.073-4.949.073zm0-2.163c2.209 0 4 1.79 4 4 0 2.209-1.791 4-4 4s-4-1.791-4-4c0-2.21 1.791-4 4-4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- 快速链接 -->
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">快速链接</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#features" class="text-gray-400 hover:text-amber-500">特色功能</a></li>
+                        <li><a href="#how-it-works" class="text-gray-400 hover:text-amber-500">使用方法</a></li>
+                        <li><a href="#pricing" class="text-gray-400 hover:text-amber-500">会员价格</a></li>
+                        <li><a href="#faq" class="text-gray-400 hover:text-amber-500">常见问题</a></li>
+                    </ul>
+                </div>
+
+                <!-- 联系我们 -->
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">联系我们</h4>
+                    <ul class="space-y-2">
+                        <li class="flex items-center text-gray-400">
+                            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                            </svg>
+                            <span>baimo@qq.com</span>
+                        </li>
+                        <li class="flex items-center text-gray-400">
+                            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                            </svg>
+                            <span>中国·西安</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- 订阅更新 -->
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">订阅更新</h4>
+                    <p class="text-gray-400 mb-4">订阅我们的更新，获取最新功能和优惠信息</p>
+                    <form class="flex">
+                        <input type="email" placeholder="您的邮箱地址" 
+                            class="flex-1 px-4 py-2 rounded-l-lg bg-gray-800 text-gray-200 focus:outline-none focus:ring-2 focus:ring-amber-500">
+                        <button type="submit" class="px-4 py-2 bg-amber-600 text-white rounded-r-lg hover:bg-amber-700">
+                            订阅
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- 版权信息 -->
+            <div class="border-t border-gray-800 pt-8 text-center text-gray-400">
+                <p>© 2024 诗韵. 版权所有 白墨</p>
+                <p class="mt-2">
+                    <a href="#" class="hover:text-amber-500">隐私政策</a>
+                    <span class="mx-2">·</span>
+                    <a href="#" class="hover:text-amber-500">服务条款</a>
+                    <span class="mx-2">·</span>
+                    <a href="#" class="hover:text-amber-500">免责声明</a>
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 定义诗句组件库
+        const poemComponents = {
+            // 二字组合（用于开头）
+            starts: ['青云', '明月', '长空', '远山', '碧水', '红霞', '紫气', '金风', '玉露', '白云', '清风', '幽谷', '淡月', '雅韵', '高山'],
+            // 二字组合（用于中间）
+            middles: ['悠悠', '袅袅', '漫漫', '茫茫', '点点', '片片', '声声', '阵阵', '缕缕', '朵朵', '盈盈', '依依', '绵绵', '飘飘', '淡淡'],
+            // 二字结尾
+            endings: ['长存', '永驻', '不绝', '无穷', '绵延', '悠扬', '绵长', '不尽', '无尽', '永恒', '相随', '入怀', '沉醉', '留连', '徘徊']
+        };
+
+        // 生成自定义诗句
+        function generateCustomLine(char) {
+            const patterns = [
+                // 模式1：char + 二字 + 二字 + 二字（确保七言）
+                () => `${char}${randomFrom(poemComponents.starts)}${randomFrom(poemComponents.middles)}${randomFrom(poemComponents.endings)}`,
+                // 模式2：char + 二字 + 四字固定句
+                () => `${char}${randomFrom(poemComponents.starts)}清风明月`,
+                // 模式3：char + 四字固定句 + 二字
+                () => `${char}花香鸟语${randomFrom(poemComponents.endings)}`,
+                // 模式4：char + 二字 + 二字 + 二字（另一种组合）
+                () => `${char}${randomFrom(poemComponents.middles)}${randomFrom(poemComponents.starts)}${randomFrom(poemComponents.endings)}`
+            ];
+
+            // 随机选择一个模式并生成诗句
+            let line = patterns[Math.floor(Math.random() * patterns.length)]();
+            
+            // 确保生成的是七言诗句
+            while (line.length !== 7) {
+                line = patterns[Math.floor(Math.random() * patterns.length)]();
+            }
+            
+            return line;
+        }
+
+        // 从数组中随机选择一个元素
+        function randomFrom(array) {
+            return array[Math.floor(Math.random() * array.length)];
+        }
+
+        // 特殊字符的固定搭配
+        const specialChars = {
+            '春': ['春风得意马蹄疾', '春色满园关不住', '春日融融花满枝', '春光明媚照心田'],
+            '夏': ['夏日炎炎似火烧', '夏风习习送清凉', '夏夜繁星伴月明', '夏雨滂沱润万物'],
+            '秋': ['秋高气爽月华明', '秋水共长天一色', '秋叶纷纷舞晚风', '秋收硕果满园香'],
+            '冬': ['冬雪纷飞舞空中', '冬日暖阳照大地', '冬夜寒风刺骨寒', '冬梅傲雪展风姿'],
+            '山': ['山峦叠嶂云缭绕', '山色空蒙雨意浓', '山泉叮咚入涧流', '山花烂漫春光里'],
+            '水': ['水波荡漾映晴空', '水光潋滟晴方好', '水村渔火入帘栊', '水墨丹青画不成'],
+            '月': ['月上柳梢春意浓', '月光如水照缘阶', '月满西楼情满怀', '月色入户思悠长'],
+            '风': ['风送清香满庭院', '风卷残云天际去', '风清气爽引诗情', '风动竹林说玉箫']
+        };
+
+        // 生成诗句
+        function generatePoemLine(char) {
+            // 检查是否有特殊字符的固定搭配
+            if (specialChars[char]) {
+                return specialChars[char][Math.floor(Math.random() * specialChars[char].length)];
+            }
+            
+            // 否则生成自定义诗句
+            return generateCustomLine(char);
+        }
+
+        // 主要的诗歌生成函数
+        function generatePoem(chars) {
+            let result = [];
+            for (let i = 0; i < 4; i++) {
+                const line = generatePoemLine(chars[i]);
+                result.push(line);
+            }
+            return result;
+        }
+
+        // 表单提交处理
+        document.getElementById('poemForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const input = this.querySelector('input');
+            const chars = input.value;
+            
+            if (chars.length !== 4) {
+                alert('请输入四个汉字');
+                return;
+            }
+
+            // 验证输入是否为汉字
+            if (!/^[\u4e00-\u9fa5]{4}$/.test(chars)) {
+                alert('请输入正确的汉字');
+                return;
+            }
+            
+            const poem = generatePoem(chars);
+            showResult(chars, poem);
+        });
+
+        // 实时预览功能
+        document.querySelector('#poemForm input').addEventListener('input', function(e) {
+            const chars = this.value;
+            if (chars.length === 4 && /^[\u4e00-\u9fa5]{4}$/.test(chars)) {
+                const poem = generatePoem(chars);
+                showResult(chars, poem);
+            }
+        });
+
+        // 显示结果的函数
+        function showResult(chars, poem) {
+            const resultHTML = `
+                <div class="text-2xl font-bold mb-8">${chars}</div>
+                <div class="space-y-4 text-lg">
+                    ${poem.map(line => `<p>${line}</p>`).join('')}
+                </div>
+                <div class="mt-8">
+                    <button onclick="regeneratePoem('${chars}')" class="px-4 py-2 bg-amber-600 text-white rounded-lg hover:bg-amber-700 transition-colors">
+                        重新生成
+                    </button>
+                </div>
+            `;
+            
+            document.getElementById('poemResult').innerHTML = resultHTML;
+            document.getElementById('resultModal').classList.remove('hidden');
+            document.getElementById('resultModal').classList.add('flex');
+        }
+
+        // 重新生成诗句
+        function regeneratePoem(chars) {
+            const poem = generatePoem(chars);
+            showResult(chars, poem);
+        }
+
+        function closeModal() {
+            document.getElementById('resultModal').classList.add('hidden');
+            document.getElementById('resultModal').classList.remove('flex');
+        }
+
+        // 移动端菜单控制
+        const menuBtn = document.getElementById('menuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        
+        menuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // 点击菜单项时关闭菜单
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+    </script>
+</body>
+</html> 
